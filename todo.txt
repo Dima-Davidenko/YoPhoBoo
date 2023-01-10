@@ -1,0 +1,23 @@
+App structure:
+Views/Routes:
+  - Register/register
+    -RegisterForm
+  - Login/
+    - LoginForm
+  - Phonebook/phonebook
+    - CreateContactForm
+    - Filter
+    - ContactList
+      ContactItem
+
+Components:
+- App,
+- Forms:
+  - RegisterForm
+  - LoginForm
+  - CreateContactForm
+- Filter
+- ContactList
+- ContactItem
+
+CreateRoutes
