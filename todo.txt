@@ -12,6 +12,10 @@ Views/Routes:
 
 Components:
 - App,
+- SharedLayout
+- Routes
+  - PrivatRoute
+  - ProtectedRoute
 - Forms:
   - RegisterForm
   - LoginForm

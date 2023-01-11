@@ -1,6 +1,6 @@
 import { useDispatch } from 'react-redux';
 import { bindActionCreators } from '@reduxjs/toolkit';
-import { fetchUsers } from '../operations/users';
+import { fetchUsers } from '../store/operations/users';
 import { useMemo } from 'react';
 
 export const useActions = () => {
