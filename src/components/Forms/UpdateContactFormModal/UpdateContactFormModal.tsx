@@ -1,3 +1,4 @@
+import ModeIcon from '@mui/icons-material/Mode';
 import { IconButton, TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
@@ -12,7 +13,6 @@ import { updateContact } from '../../../redux/phonebook/phonebookOperations';
 import { selectContacts, selectIsLoading } from '../../../redux/phonebook/phonebookSelectors';
 import { Contact } from '../../../types/phonebookTypes';
 import { formatPhoneNumber } from '../../../utils/formatPhoneNumber';
-import ModeIcon from '@mui/icons-material/Mode';
 
 const style = {
   position: 'absolute' as 'absolute',

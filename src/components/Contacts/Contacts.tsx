@@ -1,16 +1,7 @@
 import DeleteIcon from '@mui/icons-material/Delete';
 import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
 
-import {
-  Avatar,
-  Grid,
-  IconButton,
-  List,
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-  Paper,
-} from '@mui/material';
+import { Grid, IconButton, List, ListItem, ListItemText, Paper } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
