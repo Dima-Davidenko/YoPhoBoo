@@ -19,11 +19,11 @@ const authSlice = createSlice({
   extraReducers: builder => {
     builder
       .addCase(register.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = { ...action.payload.user, token: action.payload.token };
         state.isLoggedIn = true;
       })
       .addCase(logIn.fulfilled, (state, action) => {
-        state.user = action.payload;
+        state.user = { ...action.payload.user, token: action.payload.token };
         state.isLoggedIn = true;
       })
       .addCase(logOut.fulfilled, () => {
@@ -34,7 +34,7 @@ const authSlice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, action) => {
         state.isRefreshing = false;
-        state.user = action.payload;
+        state.user = { ...action.payload, token: state.user.token };
         state.isLoggedIn = true;
       });
   },

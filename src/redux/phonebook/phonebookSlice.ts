@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IPhonebookState } from '../../types/phonebookTypes';
-import { addContact, deleteContact, fetchContacts } from './phonebookOperations';
+import { addContact, deleteContact, fetchContacts, updateContact } from './phonebookOperations';
 
 const initialState: IPhonebookState = {
   contacts: [],
@@ -25,9 +25,11 @@ const phonebookSlice = createSlice({
       .addCase(fetchContacts.pending, setLoadingTrue)
       .addCase(deleteContact.pending, setLoadingTrue)
       .addCase(addContact.pending, setLoadingTrue)
+      .addCase(updateContact.pending, setLoadingTrue)
       .addCase(fetchContacts.rejected, setError)
       .addCase(deleteContact.rejected, setError)
       .addCase(addContact.rejected, setError)
+      .addCase(updateContact.rejected, setError)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
         state.error = null;
@@ -44,6 +46,13 @@ const phonebookSlice = createSlice({
         state.isLoading = false;
         state.error = null;
         state.contacts.push(newContact);
+      })
+      .addCase(updateContact.fulfilled, (state, action) => {
+        const { name, number, id } = action.payload;
+        state.isLoading = false;
+        state.error = null;
+        const index = state.contacts.findIndex(contact => contact.id === id);
+        state.contacts[index] = { id, name, number };
       });
   },
 });

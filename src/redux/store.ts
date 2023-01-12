@@ -10,9 +10,9 @@ import {
   REGISTER,
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import { authReducer } from '../redux/auth/authSlice';
-import { filtersReducer } from '../redux/filters/contactFilterSlice';
-import { phonebookReducer } from '../redux/phonebook/phonebookSlice';
+import { authReducer } from './auth/authSlice';
+import { filtersReducer } from './filters/contactFilterSlice';
+import { phonebookReducer } from './phonebook/phonebookSlice';
 
 const persistConfig = {
   key: 'root',
@@ -24,7 +24,7 @@ const persistedReducer = persistReducer(persistConfig, authReducer);
 
 const rootReducer = combineReducers({
   auth: persistedReducer,
-  contacts: phonebookReducer,
+  phonebook: phonebookReducer,
   filters: filtersReducer,
 });
 
