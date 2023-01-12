@@ -47,7 +47,6 @@ export const LoginForm: React.FC<{}> = () => {
     onSubmit: (values, { setSubmitting, resetForm }) => {
       dispatch(logIn(values));
       setSubmitting(false);
-      resetForm();
     },
     validateOnBlur: true,
   });

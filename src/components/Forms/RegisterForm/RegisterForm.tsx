@@ -62,7 +62,6 @@ export const RegisterForm: React.FC<{}> = () => {
     onSubmit: (values, { setSubmitting, resetForm }) => {
       dispatch(register(values));
       setSubmitting(false);
-      resetForm();
     },
     validateOnBlur: true,
   });
