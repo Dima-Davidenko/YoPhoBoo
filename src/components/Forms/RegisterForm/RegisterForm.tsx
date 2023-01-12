@@ -20,12 +20,14 @@ interface MyFormValues {
   name: string;
   email: string;
   password: string;
+  confirm: string;
 }
 
 const initialValues: MyFormValues = {
   name: '',
   email: '',
   password: '',
+  confirm: '',
 };
 
 const schema = yup.object().shape({
@@ -44,11 +46,16 @@ const schema = yup.object().shape({
     .min(8, 'Пароль має бути не менше 8 символів')
     .max(20, 'Багато цифр')
     .required("Пароль обов'язковий"),
+  confirm: yup
+    .string()
+    .required('Підтвердіть пароль')
+    .oneOf([yup.ref('password'), null], 'Введені паролі відрізняються'),
 });
 
 export const RegisterForm: React.FC<{}> = () => {
   const dispatch = useTypedDispatch();
   const [showPassword, setShowPassword] = React.useState(false);
+  const [showConfirm, setShowConfirm] = React.useState(false);
   const formik = useFormik({
     initialValues,
     validationSchema: schema,
@@ -130,6 +137,51 @@ export const RegisterForm: React.FC<{}> = () => {
             </FormHelperText>
           ) : (
             <FormHelperText id="password-helper-text"> </FormHelperText>
+          )}
+        </FormControl>
+        <FormControl sx={{ mb: 2, width: '100%' }} variant="outlined">
+          <InputLabel
+            error={formik.touched.confirm && Boolean(formik.errors.confirm)}
+            disableAnimation
+            shrink
+            htmlFor="confirm"
+          >
+            Підтвердження пароля
+          </InputLabel>
+          <OutlinedInput
+            notched
+            fullWidth
+            id="confirm"
+            name="confirm"
+            label="Підтвердження пароля"
+            type={showConfirm ? 'text' : 'password'}
+            value={formik.values.confirm}
+            aria-describedby="confirm-helper-text"
+            onChange={evt => {
+              formik.handleChange(evt);
+            }}
+            error={formik.touched.confirm && Boolean(formik.errors.confirm)}
+            endAdornment={
+              <InputAdornment position="end">
+                <IconButton
+                  aria-label="toggle confirm visibility"
+                  onClick={() => setShowConfirm(show => !show)}
+                  edge="end"
+                >
+                  {showConfirm ? <VisibilityOff /> : <Visibility />}
+                </IconButton>
+              </InputAdornment>
+            }
+          />
+          {formik.touched.confirm && formik.errors.confirm ? (
+            <FormHelperText
+              error={formik.touched.confirm && Boolean(formik.errors.confirm)}
+              id="confirm-helper-text"
+            >
+              {formik.errors.confirm}
+            </FormHelperText>
+          ) : (
+            <FormHelperText id="confirm-helper-text"> </FormHelperText>
           )}
         </FormControl>
         <Button type="submit" sx={{ display: 'block' }}>
