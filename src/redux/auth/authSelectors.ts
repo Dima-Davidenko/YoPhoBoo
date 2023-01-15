@@ -1,16 +1,20 @@
-import { IRootState } from '../../types/storeTypes';
+import { RootState } from '../store';
 
-export const selectIsLoggedIn = (s: IRootState) => {
+export const selectIsLoggedIn = (s: RootState) => {
   return s.auth.isLoggedIn;
 };
-export const selectIsRefreshing = (s: IRootState) => {
+export const selectIsRefreshing = (s: RootState) => {
   return s.auth.isRefreshing;
 };
 
-export const selectToken = (s: IRootState) => {
+export const selectToken = (s: RootState) => {
   return s.auth.user.token;
 };
 
-export const selectUserName = (s: IRootState) => {
+export const selectUserName = (s: RootState) => {
   return s.auth.user.name;
+};
+
+export const selectUser = (s: RootState) => {
+  return s.auth.user;
 };

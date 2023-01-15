@@ -84,9 +84,7 @@ export const LoginForm: React.FC<{}> = () => {
             type={showPassword ? 'text' : 'password'}
             value={formik.values.password}
             aria-describedby="password-helper-text"
-            onChange={evt => {
-              formik.handleChange(evt);
-            }}
+            onChange={formik.handleChange}
             error={formik.touched.password && Boolean(formik.errors.password)}
             endAdornment={
               <InputAdornment position="end">

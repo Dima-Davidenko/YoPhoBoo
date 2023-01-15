@@ -4,9 +4,9 @@ import { logIn, logOut, refreshUser, register } from './authOperations';
 
 const initialState: IAuthState = {
   user: {
-    name: null,
-    email: null,
-    token: null,
+    name: '',
+    email: '',
+    token: '',
   },
   isLoggedIn: false,
   isRefreshing: false,
@@ -36,6 +36,10 @@ const authSlice = createSlice({
         state.isRefreshing = false;
         state.user = { ...action.payload, token: state.user.token };
         state.isLoggedIn = true;
+      })
+      .addCase(refreshUser.rejected, state => {
+        state.isRefreshing = false;
+        state.user.token = '';
       });
   },
 });

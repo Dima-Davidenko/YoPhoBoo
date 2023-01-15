@@ -11,8 +11,9 @@ import * as yup from 'yup';
 import { useTypedDispatch } from '../../../hooks/useTypedDispatch';
 import { updateContact } from '../../../redux/phonebook/phonebookOperations';
 import { selectContacts, selectIsLoading } from '../../../redux/phonebook/phonebookSelectors';
-import { Contact } from '../../../types/phonebookTypes';
+import { IContanct } from '../../../types/serverSchemaTypes';
 import { formatPhoneNumber } from '../../../utils/formatPhoneNumber';
+import EditIcon from '@mui/icons-material/EditRounded';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -50,7 +51,7 @@ const UpdateContactFormModal: React.FC<IProps> = ({ id }) => {
   const isLoading = useSelector(selectIsLoading);
   const { name: oldName, number: oldNumber } = contacts.find(
     contact => contact.id === id
-  ) as Contact;
+  ) as IContanct;
   const dispatch = useTypedDispatch();
   const [open, setOpen] = React.useState(false);
   const handleOpen = () => setOpen(true);
@@ -63,11 +64,8 @@ const UpdateContactFormModal: React.FC<IProps> = ({ id }) => {
     validationSchema: schema,
     enableReinitialize: true,
     onSubmit: ({ name, number }, { setSubmitting, resetForm }) => {
-      if (
-        name !== oldName &&
-        contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())
-      ) {
-        toast.error('Контакт з таким іменем вже існує');
+      if (number !== oldNumber && contacts.some(contact => contact.number === number)) {
+        toast.error('Контакт з таким номером вже існує');
         setSubmitting(false);
         return;
       }
@@ -78,18 +76,23 @@ const UpdateContactFormModal: React.FC<IProps> = ({ id }) => {
     },
     validateOnBlur: true,
   });
+  const formatNumber = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    evt.target.value = formatPhoneNumber(evt.target.value);
+    formik.handleChange(evt);
+  };
 
   return (
     <>
-      <IconButton
+      <Button
+        variant="contained"
         aria-label="edit"
-        onClick={handleOpen}
         disabled={isLoading}
-        sx={{ display: 'block', width: '43px', height: '43px' }}
+        color="primary"
+        startIcon={<EditIcon />}
+        onClick={handleOpen}
       >
-        <ModeIcon />
-      </IconButton>
-
+        Edit
+      </Button>
       <Modal
         open={open}
         onClose={handleClose}
@@ -119,10 +122,7 @@ const UpdateContactFormModal: React.FC<IProps> = ({ id }) => {
               label="Номер телефону"
               type="text"
               value={formik.values.number}
-              onChange={evt => {
-                evt.target.value = formatPhoneNumber(evt.target.value);
-                formik.handleChange(evt);
-              }}
+              onChange={formatNumber}
               error={formik.touched.number && Boolean(formik.errors.number)}
               helperText={(formik.touched.number && formik.errors.number) || ' '}
               variant="outlined"

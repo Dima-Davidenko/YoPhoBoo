@@ -9,13 +9,20 @@ import '@fontsource/roboto/700.css';
 import './css/index.scss';
 import App from './App';
 import { store } from './redux/store';
+import './declaration.d.ts';
+import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
+
+let theme = createTheme();
+theme = responsiveFontSizes(theme);
 
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter basename="goit-react-hw-08-phonebook">
-        <App />
+        <ThemeProvider theme={theme}>
+          <App />
+        </ThemeProvider>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

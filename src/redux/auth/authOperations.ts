@@ -1,14 +1,13 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
+import { createAppAsyncThunk } from '../../types/asyncThunkTyped';
 import {
-  IServerCurrentGetRes,
-  IServerUsersLoginPostRes,
-  IServerUsersLoginPostSchema,
-  IServerUsersSignupPostSchema,
-  IServerUsersSignupPostRes,
+  IRegisterUser,
+  ISignServerResponse,
+  IUser,
+  IUserLogIn,
 } from '../../types/serverSchemaTypes';
-import { IRootState } from '../../types/storeTypes';
+import { RootState } from '../store';
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
 const setAuthHeader = (token: string | null) => {
@@ -20,11 +19,11 @@ const clearAuthHeader = () => {
   axios.defaults.headers.common.Authorization = '';
 };
 
-export const register = createAsyncThunk(
+export const register = createAppAsyncThunk(
   'auth/register',
-  async (credentials: IServerUsersSignupPostSchema, thunkAPI) => {
+  async (credentials: IRegisterUser, thunkAPI) => {
     try {
-      const { data } = await axios.post<IServerUsersSignupPostRes>('/users/signup', credentials);
+      const { data } = await axios.post<ISignServerResponse>('/users/signup', credentials);
       setAuthHeader(data.token);
       toast.success(`Nice to meet you ${data.user.name}!`);
       return data;
@@ -36,11 +35,11 @@ export const register = createAsyncThunk(
   }
 );
 
-export const logIn = createAsyncThunk(
+export const logIn = createAppAsyncThunk(
   'auth/login',
-  async (credentials: IServerUsersLoginPostSchema, thunkAPI) => {
+  async (credentials: IUserLogIn, thunkAPI) => {
     try {
-      const { data } = await axios.post<IServerUsersLoginPostRes>('/users/login', credentials);
+      const { data } = await axios.post<ISignServerResponse>('/users/login', credentials);
       setAuthHeader(data.token);
       toast.success(`Nice to see you again, ${data.user.name}!`);
       return data;
@@ -52,7 +51,7 @@ export const logIn = createAsyncThunk(
   }
 );
 
-export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
+export const logOut = createAppAsyncThunk('auth/logout', async (_, thunkAPI) => {
   try {
     await axios.post('/users/logout');
     clearAuthHeader();
@@ -63,19 +62,31 @@ export const logOut = createAsyncThunk('auth/logout', async (_, thunkAPI) => {
   }
 });
 
-export const refreshUser = createAsyncThunk('auth/refresh', async (_, thunkAPI) => {
-  const state = thunkAPI.getState() as IRootState;
+export const refreshUser = createAppAsyncThunk('auth/refresh', async (_, thunkAPI) => {
+  const state = thunkAPI.getState() as RootState;
   const persistedToken = state.auth.user.token;
   if (persistedToken === null) {
-    return thunkAPI.rejectWithValue(null);
+    return thunkAPI.rejectWithValue('');
   }
   setAuthHeader(persistedToken);
+  const toastId = toast.loading('Перевіряємо дані користувача');
   try {
-    const { data } = await axios.get<IServerCurrentGetRes>('/users/current');
-    toast.success(`You entered in system like ${data.name}!`);
+    const { data } = await axios.get<IUser>('/users/current');
+    toast.update(toastId, {
+      render: `Вітаємо ${data.name}!`,
+      type: 'success',
+      isLoading: false,
+      autoClose: 3000,
+    });
     return data;
   } catch (error) {
     const e = error as AxiosError;
+    toast.update(toastId, {
+      render: `Виникла помилка ${e.message}!`,
+      type: 'error',
+      isLoading: false,
+      autoClose: 3000,
+    });
     toast.error(`Something went wrong. ${e.message}. Please try again.`);
     return thunkAPI.rejectWithValue(e.message);
   }

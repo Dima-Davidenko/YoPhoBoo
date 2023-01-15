@@ -1,71 +1,26 @@
-import DeleteIcon from '@mui/icons-material/Delete';
-import LocalPhoneIcon from '@mui/icons-material/LocalPhone';
-
-import { Grid, IconButton, List, ListItem, ListItemText, Paper } from '@mui/material';
+import { Grid, Paper } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
-import { deleteContact, fetchContacts } from '../../redux/phonebook/phonebookOperations';
+import { fetchContacts } from '../../redux/phonebook/phonebookOperations';
 import { selectFilteredContacts, selectIsLoading } from '../../redux/phonebook/phonebookSelectors';
-import UpdateContactFormModal from '../Forms/UpdateContactFormModal/UpdateContactFormModal';
+import ContactCard from '../ContactCard/ContactCard';
+import css from './Contacts.module.scss';
 
-const Contacts: React.FC<React.PropsWithChildren> = ({ children }) => {
+const Contacts: React.FC = () => {
   const dispatch = useTypedDispatch();
-  const isLoading = useSelector(selectIsLoading);
   const filteredContacts = useSelector(selectFilteredContacts);
   useEffect(() => {
     dispatch(fetchContacts());
   }, [dispatch]);
   return (
-    <Paper sx={{ p: 2, mb: 8, width: '100%' }}>
-      {children}
-      <Grid item xs={12} md={6}>
-        <List sx={{ maxWidth: '500px' }}>
-          {[...filteredContacts].reverse().map(({ id, name, number }) => (
-            <ListItem
-              secondaryAction={
-                <IconButton
-                  edge="end"
-                  aria-label="delete"
-                  onClick={() => dispatch(deleteContact(id))}
-                  disabled={isLoading}
-                >
-                  <DeleteIcon />
-                </IconButton>
-              }
-              key={id}
-            >
-              <a href={`tel:+38${number.replace(/[^\d]/g, '')}`} aria-label="call">
-                <IconButton
-                  aria-label="call"
-                  disabled={isLoading}
-                  sx={{ display: 'block', width: '43px', height: '43px' }}
-                >
-                  <LocalPhoneIcon />
-                </IconButton>
-              </a>
-              <div
-                style={{
-                  alignItems: 'center',
-                  display: 'flex',
-                  paddingLeft: '5px',
-                  justifyContent: 'space-between',
-                  textDecoration: 'none',
-                  color: 'inherit',
-                  width: '100%',
-                }}
-              >
-                <div>
-                  <ListItemText primary={`${name}`} />
-                  <ListItemText primary={`${number}`} />
-                </div>
-                <UpdateContactFormModal id={id} />
-              </div>
-            </ListItem>
-          ))}
-        </List>
-      </Grid>
-    </Paper>
+    <ul className={css.contactList}>
+      {[...filteredContacts].reverse().map(({ id, name, number }) => (
+        <li key={id}>
+          <ContactCard id={id} name={name} number={number} />
+        </li>
+      ))}
+    </ul>
   );
 };
 

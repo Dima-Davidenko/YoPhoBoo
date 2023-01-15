@@ -1,17 +1,31 @@
-import { Button, Paper, TextField } from '@mui/material';
+import { Box, Button, IconButton, Modal, Paper, TextField } from '@mui/material';
+import ModeIcon from '@mui/icons-material/Mode';
+import AddIcon from '@mui/icons-material/Add';
 import { useFormik } from 'formik';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useTypedDispatch } from '../../../hooks/useTypedDispatch';
 import { addContact } from '../../../redux/phonebook/phonebookOperations';
-import { selectContacts } from '../../../redux/phonebook/phonebookSelectors';
+import { selectContacts, selectIsLoading } from '../../../redux/phonebook/phonebookSelectors';
 import { formatPhoneNumber } from '../../../utils/formatPhoneNumber';
 
 interface MyFormValues {
   name: string;
   number: string;
 }
+const style = {
+  position: 'absolute' as 'absolute',
+  top: '50%',
+  left: '50%',
+  transform: 'translate(-50%, -50%)',
+  width: 400,
+  bgcolor: 'background.paper',
+  border: '2px solid #000',
+  boxShadow: 24,
+  p: 4,
+};
 
 const schema = yup.object().shape({
   name: yup
@@ -30,63 +44,89 @@ const schema = yup.object().shape({
 
 const initialValues: MyFormValues = { name: '', number: '' };
 
-const NewContactForm = () => {
+const NewContactForm: React.FC = () => {
   const contacts = useSelector(selectContacts);
+  const isLoading = useSelector(selectIsLoading);
   const dispatch = useTypedDispatch();
+  const [open, setOpen] = React.useState(false);
+  const handleOpen = () => setOpen(true);
+  const handleClose = () => setOpen(false);
   const formik = useFormik({
     initialValues,
     validationSchema: schema,
     onSubmit: ({ name, number }, { setSubmitting, resetForm }) => {
-      if (contacts.some(contact => contact.name.toLowerCase() === name.toLowerCase())) {
-        toast.error('Контакт з таким іменем вже існує');
+      if (contacts.some(contact => contact.number === number)) {
+        toast.error('Контакт з таким номером вже існує');
         setSubmitting(false);
         return;
       }
       resetForm();
       dispatch(addContact({ name, number }));
       setSubmitting(false);
+      setOpen(false);
     },
     validateOnBlur: true,
   });
+  const formatNumber = (evt: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    evt.target.value = formatPhoneNumber(evt.target.value);
+    formik.handleChange(evt);
+  };
 
   return (
-    <Paper sx={{ p: 2, mb: 8, width: '100%' }}>
-      <form onSubmit={formik.handleSubmit}>
-        <TextField
-          InputLabelProps={{ disableAnimation: true, shrink: true }}
-          fullWidth
-          id="name"
-          name="name"
-          label="Ім'я"
-          value={formik.values.name}
-          onChange={formik.handleChange}
-          error={formik.touched.name && Boolean(formik.errors.name)}
-          helperText={(formik.touched.name && formik.errors.name) || ' '}
-          variant="outlined"
-          sx={{ mb: '20px', width: '100%' }}
-        />
-        <TextField
-          InputLabelProps={{ disableAnimation: true, shrink: true }}
-          fullWidth
-          id="number"
-          name="number"
-          label="Номер телефону"
-          type="text"
-          value={formik.values.number}
-          onChange={evt => {
-            evt.target.value = formatPhoneNumber(evt.target.value);
-            formik.handleChange(evt);
-          }}
-          error={formik.touched.number && Boolean(formik.errors.number)}
-          helperText={(formik.touched.number && formik.errors.number) || ' '}
-          variant="outlined"
-          sx={{ mb: '20px', width: '100%' }}
-        />
-        <Button type="submit" sx={{ display: 'block' }}>
-          Додати до записника
-        </Button>
-      </form>
-    </Paper>
+    <>
+      <Button
+        variant="outlined"
+        startIcon={<AddIcon />}
+        aria-label="create contact"
+        onClick={handleOpen}
+        disabled={isLoading}
+        sx={{ m: 2 }}
+      >
+        Створити новий контакт
+      </Button>
+
+      <Modal
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="modal-modal-title"
+        aria-describedby="modal-modal-description"
+      >
+        <Box sx={style}>
+          <form onSubmit={formik.handleSubmit}>
+            <TextField
+              InputLabelProps={{ disableAnimation: true, shrink: true }}
+              fullWidth
+              id="name"
+              name="name"
+              label="Ім'я"
+              value={formik.values.name}
+              onChange={formik.handleChange}
+              error={formik.touched.name && Boolean(formik.errors.name)}
+              helperText={(formik.touched.name && formik.errors.name) || ' '}
+              variant="outlined"
+              sx={{ mb: '20px', width: '100%' }}
+            />
+            <TextField
+              InputLabelProps={{ disableAnimation: true, shrink: true }}
+              fullWidth
+              id="number"
+              name="number"
+              label="Номер телефону"
+              type="text"
+              value={formik.values.number}
+              onChange={formatNumber}
+              error={formik.touched.number && Boolean(formik.errors.number)}
+              helperText={(formik.touched.number && formik.errors.number) || ' '}
+              variant="outlined"
+              sx={{ mb: '20px', width: '100%' }}
+            />
+            <Button type="submit" sx={{ display: 'block' }}>
+              Створити контакт
+            </Button>
+          </form>
+        </Box>
+      </Modal>
+    </>
   );
 };
 

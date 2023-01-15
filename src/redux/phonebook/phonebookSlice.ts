@@ -5,14 +5,16 @@ import { addContact, deleteContact, fetchContacts, updateContact } from './phone
 const initialState: IPhonebookState = {
   contacts: [],
   isLoading: false,
-  error: null,
+  error: '',
 };
 
 const setLoadingTrue = (state: IPhonebookState) => {
   state.isLoading = true;
+  state.error = '';
 };
 
 const setError = (state: IPhonebookState, action: any) => {
+  state.isLoading = false;
   state.error = action.payload;
 };
 
@@ -32,25 +34,25 @@ const phonebookSlice = createSlice({
       .addCase(updateContact.rejected, setError)
       .addCase(fetchContacts.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.error = null;
+        state.error = '';
         state.contacts = action.payload;
       })
       .addCase(deleteContact.fulfilled, (state, action) => {
         const idToDelete = action.payload;
         state.isLoading = false;
-        state.error = null;
+        state.error = '';
         state.contacts = state.contacts.filter(({ id }) => id !== idToDelete);
       })
       .addCase(addContact.fulfilled, (state, action) => {
         const newContact = action.payload;
         state.isLoading = false;
-        state.error = null;
+        state.error = '';
         state.contacts.push(newContact);
       })
       .addCase(updateContact.fulfilled, (state, action) => {
         const { name, number, id } = action.payload;
         state.isLoading = false;
-        state.error = null;
+        state.error = '';
         const index = state.contacts.findIndex(contact => contact.id === id);
         state.contacts[index] = { id, name, number };
       });

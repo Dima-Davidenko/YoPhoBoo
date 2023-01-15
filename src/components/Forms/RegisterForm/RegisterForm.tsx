@@ -156,9 +156,7 @@ export const RegisterForm: React.FC<{}> = () => {
             type={showConfirm ? 'text' : 'password'}
             value={formik.values.confirm}
             aria-describedby="confirm-helper-text"
-            onChange={evt => {
-              formik.handleChange(evt);
-            }}
+            onChange={formik.handleChange}
             error={formik.touched.confirm && Boolean(formik.errors.confirm)}
             endAdornment={
               <InputAdornment position="end">

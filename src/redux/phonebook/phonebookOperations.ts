@@ -1,21 +1,13 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios, { AxiosError } from 'axios';
 import { toast } from 'react-toastify';
-import { Contact } from '../../types/phonebookTypes';
-import {
-  IServerContactsDeleteRes,
-  IServerContactsGetRes,
-  IServerContactsIDPatchRes,
-  IServerContactsIDPatchSchema,
-  IServerContactsPostRes,
-  IServerContactsPostSchema,
-} from '../../types/serverSchemaTypes';
+import { createAppAsyncThunk } from '../../types/asyncThunkTyped';
+import { IContanct, IStoredContact } from '../../types/serverSchemaTypes';
 
 axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 
-export const fetchContacts = createAsyncThunk('contacts/fetch', async (_, thunkAPI) => {
+export const fetchContacts = createAppAsyncThunk('contacts/fetch', async (_, thunkAPI) => {
   try {
-    const { data } = await axios.get<IServerContactsGetRes>(`/contacts`);
+    const { data } = await axios.get<Array<IStoredContact>>(`/contacts`);
     return data;
   } catch (error) {
     const e = error as AxiosError;
@@ -24,9 +16,9 @@ export const fetchContacts = createAsyncThunk('contacts/fetch', async (_, thunkA
   }
 });
 
-export const deleteContact = createAsyncThunk('contact/delete', async (id: string, thunkAPI) => {
+export const deleteContact = createAppAsyncThunk('contact/delete', async (id: string, thunkAPI) => {
   try {
-    const { data } = await axios.delete<IServerContactsDeleteRes>(`/contacts/${id}`);
+    const { data } = await axios.delete<IStoredContact>(`/contacts/${id}`);
     toast.success(`Contact ${data.name} deleted!`);
     return data.id;
   } catch (error) {
@@ -36,11 +28,11 @@ export const deleteContact = createAsyncThunk('contact/delete', async (id: strin
   }
 });
 
-export const addContact = createAsyncThunk(
+export const addContact = createAppAsyncThunk(
   'contact/add',
-  async (contact: IServerContactsPostSchema, thunkAPI) => {
+  async (contact: IContanct, thunkAPI) => {
     try {
-      const { data } = await axios.post<IServerContactsPostRes>('/contacts', contact);
+      const { data } = await axios.post<IStoredContact>('/contacts', contact);
       toast.success(`Contact ${data.name} created!`);
       return data;
     } catch (error) {
@@ -51,15 +43,15 @@ export const addContact = createAsyncThunk(
   }
 );
 
-export const updateContact = createAsyncThunk(
+export const updateContact = createAppAsyncThunk(
   'contact/update',
-  async ({ name, number, id }: Contact, thunkAPI) => {
-    const updContact: IServerContactsIDPatchSchema = {
+  async ({ name, number, id }: IStoredContact, thunkAPI) => {
+    const updContact: IContanct = {
       name,
       number,
     };
     try {
-      const { data } = await axios.patch<IServerContactsIDPatchRes>(`/contacts/${id}`, updContact);
+      const { data } = await axios.patch<IContanct>(`/contacts/${id}`, updContact);
       toast.success(`Contact ${data.name} updated!`);
       const updatedContact = {
         name: data.name,
