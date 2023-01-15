@@ -1,6 +1,7 @@
 import { Avatar, Box, Card, CardContent, Typography } from '@mui/material';
 import React from 'react';
 import { useSelector } from 'react-redux';
+import FakeContactsCreate from '../../components/FakeContactsCreate/FakeContactsCreate';
 import { selectUser } from '../../redux/auth/authSelectors';
 import { getColorFromName } from '../../utils/getColorFromName';
 import { getFirstTwoLetters } from '../../utils/getFirstTwoLetters';
@@ -37,6 +38,7 @@ const Profile: React.FC = () => {
               {email}
             </Typography>
           </Typography>
+          <FakeContactsCreate />
         </Box>
       </CardContent>
     </Card>
