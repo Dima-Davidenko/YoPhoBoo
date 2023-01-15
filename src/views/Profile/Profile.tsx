@@ -8,10 +8,14 @@ import { getFirstTwoLetters } from '../../utils/getFirstTwoLetters';
 const Profile: React.FC = () => {
   const { name, email } = useSelector(selectUser);
   return (
-    <Card elevation={4} sx={{ borderRadius: 2, m: 5 }}>
+    <Card elevation={4} sx={{ borderRadius: 2, m: { sm: 1, m: 5 } }}>
       <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar
           sx={{
+            display: {
+              xs: 'none',
+              sm: 'flex',
+            },
             mr: 2,
             bgcolor: getColorFromName(getFirstTwoLetters(name).toUpperCase()),
             height: 60,
