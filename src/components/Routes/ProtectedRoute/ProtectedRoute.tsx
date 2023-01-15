@@ -1,18 +1,15 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Navigate } from 'react-router-dom';
 import { selectIsLoggedIn } from '../../../redux/auth/authSelectors';
 
-const ProtectedRoute: React.FC<React.PropsWithChildren> = ({ children }) => {
+const ProtectedRoute: React.FC<React.PropsWithChildren<{ defaultRoute: string }>> = ({
+  children,
+  defaultRoute,
+}) => {
   const isLoggedIn = useSelector(selectIsLoggedIn);
-  const navigate = useNavigate();
-  useEffect(() => {
-    if (isLoggedIn) {
-      navigate('/phonebook');
-    }
-  }, [isLoggedIn, navigate]);
 
-  return <>{children}</>;
+  return <>{isLoggedIn ? <Navigate to={defaultRoute} /> : children}</>;
 };
 
 export default ProtectedRoute;
