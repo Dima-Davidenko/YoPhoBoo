@@ -4,6 +4,7 @@ import AddIcon from '@mui/icons-material/Add';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import fakeContacts from '../../assets/fakeContacts.json';
 import { addContact } from '../../redux/phonebook/phonebookOperations';
+import { useNavigate } from 'react-router-dom';
 
 const style = {
   position: 'absolute' as 'absolute',
@@ -19,10 +20,12 @@ const style = {
 
 const FakeContactsCreate: React.FC = () => {
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
   const [open, setOpen] = React.useState(false);
   const createFakeContacts = () => {
     setOpen(false);
     fakeContacts.forEach(contact => dispatch(addContact(contact)));
+    navigate('/phonebook');
   };
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
