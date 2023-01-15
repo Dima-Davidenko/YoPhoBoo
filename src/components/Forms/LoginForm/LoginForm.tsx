@@ -9,9 +9,11 @@ import {
   OutlinedInput,
   Paper,
   TextField,
+  Typography,
 } from '@mui/material';
 import { useFormik } from 'formik';
 import * as React from 'react';
+import { useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 import { useTypedDispatch } from '../../../hooks/useTypedDispatch';
 import { logIn } from '../../../redux/auth/authOperations';
@@ -40,6 +42,7 @@ const schema = yup.object().shape({
 
 export const LoginForm: React.FC<{}> = () => {
   const dispatch = useTypedDispatch();
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
   const formik = useFormik({
     initialValues,
@@ -52,7 +55,17 @@ export const LoginForm: React.FC<{}> = () => {
   });
 
   return (
-    <Paper sx={{ p: 2, mb: 8, width: '100%' }}>
+    <Paper
+      sx={{
+        p: 2,
+        mb: 8,
+        ml: 'auto',
+        mr: 'auto',
+        width: '100%',
+        backgroundColor: 'rgba(255,255,255,0.9)',
+        maxWidth: 500,
+      }}
+    >
       <form onSubmit={formik.handleSubmit}>
         <TextField
           InputLabelProps={{ disableAnimation: true, shrink: true }}
@@ -113,6 +126,10 @@ export const LoginForm: React.FC<{}> = () => {
           Увійти
         </Button>
       </form>
+      <Typography>
+        Не маєте облікового запису?{' '}
+        <Button onClick={() => navigate('/registration')}>Зареєструватися</Button>
+      </Typography>
     </Paper>
   );
 };
