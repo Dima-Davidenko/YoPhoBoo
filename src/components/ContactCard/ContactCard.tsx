@@ -20,7 +20,7 @@ const ContactCard: React.FC<IContactCard> = ({ id = '', name = '', number = '' }
   const dispatch = useTypedDispatch();
   const isLoading = useSelector(selectIsLoading);
   return (
-    <Card elevation={4} sx={{ borderRadius: 2 }}>
+    <Card elevation={4} sx={{ borderRadius: 2, backgroundColor: 'rgba(255,255,255,0.9)' }}>
       <CardContent sx={{ display: 'flex', alignItems: 'center' }}>
         <Avatar
           sx={{
