@@ -1,68 +1,27 @@
-export interface IServerCurrentGetRes {
+export interface IUser {
   name: string;
   email: string;
 }
-export interface IServerUsersSignupPostRes {
-  user: {
-    name: string;
-    email: string;
-  };
+export interface ISignServerResponse {
+  user: IUser;
   token: string;
 }
 
-export interface IServerUsersSignupPostSchema {
-  name: string;
+export interface IStoredUser extends IUser {
+  id: string;
+}
+export interface IRegisterUser extends IUser {
+  password: string;
+}
+export interface IUserLogIn {
   email: string;
   password: string;
 }
 
-export interface IServerUsersLoginPostRes {
-  user: {
-    name: string;
-    email: string;
-  };
-  token: string;
-}
-export interface IServerUsersLoginPostSchema {
-  email: string;
-  password: string;
-}
-
-export interface IServerContactsPostSchema {
+export interface IContanct {
   name: string;
   number: string;
 }
-
-export interface IServerContactsIDPatchSchema {
-  name: string;
-  number: string;
-}
-
-export interface IServerContactsIDPatchRes {
-  name: string;
-  number: string;
-}
-export interface IServerContactsPostRes {
+export interface IStoredContact extends IContanct {
   id: string;
-  name: string;
-  number: string;
 }
-export interface IServerContactsDeleteRes {
-  id: string;
-  name: string;
-  number: string;
-}
-export type IServerContactsGetRes = Array<IServerContactsPostRes>;
-
-/* export interface IServerSignupError400 {
-  driver: boolean;
-  name: string;
-  index: number;
-  code: number;
-  keyPattern: {
-    email: number;
-  };
-  keyValue: {
-    email: string;
-  };
-} */

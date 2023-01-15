@@ -1,11 +1,7 @@
-export type Contact = {
-  id: string;
-  name: string;
-  number: string;
-};
+import { IStoredContact } from './serverSchemaTypes';
 
 export interface IPhonebookState {
-  contacts: Array<Contact>;
+  contacts: Array<IStoredContact>;
   isLoading: boolean;
-  error: null | string;
+  error: string;
 }

@@ -1,8 +1,8 @@
 export interface IAuthState {
   user: {
-    name: null | string;
-    email: null | string;
-    token: null | string;
+    name: string;
+    email: string;
+    token: string;
   };
   isLoggedIn: boolean;
   isRefreshing: boolean;
