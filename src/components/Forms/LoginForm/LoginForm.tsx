@@ -122,7 +122,7 @@ export const LoginForm: React.FC<{}> = () => {
             <FormHelperText id="password-helper-text"> </FormHelperText>
           )}
         </FormControl>
-        <Button type="submit" sx={{ display: 'block' }}>
+        <Button variant="outlined" type="submit" sx={{ display: 'block' }}>
           Увійти
         </Button>
       </form>

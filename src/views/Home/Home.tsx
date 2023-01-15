@@ -12,7 +12,7 @@ const Home: React.FC = () => {
     <div className={css.wrapper}>
       <Typography color="primary" variant="h4" align="center">
         Вітаємо у нашому додатку для збереження контактів{' '}
-        <Typography component="div" fontSize={40} variant="button">
+        <Typography color="#4447EA" component="div" fontSize={40} variant="body1" fontWeight={700}>
           YoPhoBoo
         </Typography>
       </Typography>

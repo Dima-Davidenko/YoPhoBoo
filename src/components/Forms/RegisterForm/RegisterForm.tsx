@@ -194,7 +194,7 @@ export const RegisterForm: React.FC<{}> = () => {
             <FormHelperText id="confirm-helper-text"> </FormHelperText>
           )}
         </FormControl>
-        <Button type="submit" sx={{ display: 'block' }}>
+        <Button type="submit" variant="outlined" sx={{ display: 'block' }}>
           Зареєструватися
         </Button>
       </form>
