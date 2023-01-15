@@ -3,5 +3,10 @@
   margin: 20px;
 }
 .wrapper {
+  height: 95vh;
   text-align: center;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-blend-mode: multiply;
 }

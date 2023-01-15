@@ -1,7 +1,5 @@
 import React from 'react';
 import css from './Home.module.scss';
-
-import phonebookImg from '../../assets/phonebook.png';
 import { Box, Button, Divider, Typography } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useSelector } from 'react-redux';
@@ -12,7 +10,6 @@ const Home: React.FC = () => {
   const navigate = useNavigate();
   return (
     <div className={css.wrapper}>
-      <img className={css.backImg} src={phonebookImg} alt="phonebook" />
       <Typography color="primary" variant="h4" align="center">
         Вітаємо у нашому додатку для збереження контактів{' '}
         <Typography component="div" fontSize={40} variant="button">
