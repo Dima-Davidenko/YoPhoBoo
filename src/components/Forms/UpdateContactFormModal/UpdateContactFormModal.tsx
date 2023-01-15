@@ -1,5 +1,5 @@
-import ModeIcon from '@mui/icons-material/Mode';
-import { IconButton, TextField } from '@mui/material';
+import EditIcon from '@mui/icons-material/EditRounded';
+import { TextField } from '@mui/material';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
 import Modal from '@mui/material/Modal';
@@ -13,7 +13,6 @@ import { updateContact } from '../../../redux/phonebook/phonebookOperations';
 import { selectContacts, selectIsLoading } from '../../../redux/phonebook/phonebookSelectors';
 import { IContanct } from '../../../types/serverSchemaTypes';
 import { formatPhoneNumber } from '../../../utils/formatPhoneNumber';
-import EditIcon from '@mui/icons-material/EditRounded';
 
 const style = {
   position: 'absolute' as 'absolute',

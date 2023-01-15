@@ -1,6 +1,5 @@
-import { Box, Button, IconButton, Modal, Paper, TextField } from '@mui/material';
-import ModeIcon from '@mui/icons-material/Mode';
 import AddIcon from '@mui/icons-material/Add';
+import { Box, Button, Modal, TextField } from '@mui/material';
 import { useFormik } from 'formik';
 import React from 'react';
 import { useSelector } from 'react-redux';

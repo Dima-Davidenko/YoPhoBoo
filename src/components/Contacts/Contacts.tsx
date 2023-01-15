@@ -1,9 +1,8 @@
-import { Grid, Paper } from '@mui/material';
 import React, { useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import { useTypedDispatch } from '../../hooks/useTypedDispatch';
 import { fetchContacts } from '../../redux/phonebook/phonebookOperations';
-import { selectFilteredContacts, selectIsLoading } from '../../redux/phonebook/phonebookSelectors';
+import { selectFilteredContacts } from '../../redux/phonebook/phonebookSelectors';
 import ContactCard from '../ContactCard/ContactCard';
 import css from './Contacts.module.scss';
 
