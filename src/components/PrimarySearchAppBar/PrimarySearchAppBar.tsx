@@ -192,7 +192,7 @@ const PrimarySearchAppBar: React.FC = () => {
         }}
       >
         <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-          <HouseIcon />
+          <HouseIcon color="primary" />
         </IconButton>
         <p>Головна</p>
       </MenuItem>
@@ -205,7 +205,7 @@ const PrimarySearchAppBar: React.FC = () => {
         >
           <IconButton size="large" aria-label="show 17 new notifications" color="inherit">
             <Badge badgeContent={contactsCount} color="error">
-              <LocalPhoneIcon />
+              <LocalPhoneIcon color="primary" />
             </Badge>
           </IconButton>
           <p>Контакти</p>
@@ -220,7 +220,7 @@ const PrimarySearchAppBar: React.FC = () => {
           aria-haspopup="true"
           color="inherit"
         >
-          <AccountCircle />
+          <AccountCircle color="primary" />
         </IconButton>
         <p>Меню Користувача</p>
       </MenuItem>
