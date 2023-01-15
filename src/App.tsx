@@ -56,6 +56,15 @@ function App() {
                 </PrivateRoute>
               }
             />
+          <Route
+            path="profile"
+            element={
+              <PrivateRoute defaultRoute="/">
+                <Profile />
+              </PrivateRoute>
+            }
+          />
+          <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
       )}
