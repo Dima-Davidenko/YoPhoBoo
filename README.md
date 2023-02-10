@@ -1,4 +1,4 @@
-# PhoneBook
+# YoPhoBoo App
 ## React TypeScript project of BC-36 GoIT Academy student Dmytro Davidenko
 
 ## [ Stack of technologies ]
