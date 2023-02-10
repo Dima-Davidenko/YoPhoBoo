@@ -9,6 +9,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useTypedDispatch } from '../../../hooks/useTypedDispatch';
+import { useEditContactMutation } from '../../../redux/phonebook/phonebookAPI';
 import { updateContact } from '../../../redux/phonebook/phonebookOperations';
 import { selectContacts, selectIsLoading } from '../../../redux/phonebook/phonebookSelectors';
 import { IContanct } from '../../../types/serverSchemaTypes';
@@ -46,6 +47,7 @@ interface IProps {
 }
 
 const UpdateContactFormModal: React.FC<IProps> = ({ id }) => {
+  // const [editContact, result] = useEditContactMutation();
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const { name: oldName, number: oldNumber } = contacts.find(
@@ -70,6 +72,7 @@ const UpdateContactFormModal: React.FC<IProps> = ({ id }) => {
       }
       resetForm();
       dispatch(updateContact({ id, name, number }));
+      // editContact({ id, name, number });
       setSubmitting(false);
       setOpen(false);
     },

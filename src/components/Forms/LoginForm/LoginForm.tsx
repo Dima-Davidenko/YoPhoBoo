@@ -78,6 +78,7 @@ export const LoginForm: React.FC<{}> = () => {
           helperText={(formik.touched.email && formik.errors.email) || ' '}
           variant="outlined"
           sx={{ mb: '20px', width: '100%' }}
+          FormHelperTextProps={{ sx: { position: 'absolute', width: '200px' } }}
         />
         <FormControl sx={{ mb: 2, width: '100%' }} variant="outlined">
           <InputLabel

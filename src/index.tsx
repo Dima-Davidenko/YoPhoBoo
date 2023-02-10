@@ -8,9 +8,10 @@ import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 import './css/index.scss';
 import App from './App';
-import { store } from './redux/store';
+import { persistor, store } from './redux/store';
 import './declaration.d.ts';
 import { createTheme, responsiveFontSizes, ThemeProvider } from '@mui/material';
+import { PersistGate } from 'redux-persist/integration/react';
 
 let theme = createTheme();
 theme = responsiveFontSizes(theme);
@@ -20,9 +21,11 @@ root.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter basename="goit-react-hw-08-phonebook">
-        <ThemeProvider theme={theme}>
-          <App />
-        </ThemeProvider>
+        <PersistGate loading={null} persistor={persistor}>
+          <ThemeProvider theme={theme}>
+            <App />
+          </ThemeProvider>
+        </PersistGate>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>

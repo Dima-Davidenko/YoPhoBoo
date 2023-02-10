@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage';
 import { authReducer } from './auth/authSlice';
 import { filtersReducer } from './filters/contactFilterSlice';
+import { phonebookAPI } from './phonebook/phonebookAPI';
 import { phonebookReducer } from './phonebook/phonebookSlice';
 
 const persistConfig = {
@@ -26,6 +27,7 @@ const rootReducer = combineReducers({
   auth: persistedReducer,
   phonebook: phonebookReducer,
   filters: filtersReducer,
+  [phonebookAPI.reducerPath]: phonebookAPI.reducer,
 });
 
 export const store = configureStore({
@@ -35,7 +37,7 @@ export const store = configureStore({
       serializableCheck: {
         ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
       },
-    }),
+    }).concat(phonebookAPI.middleware),
 });
 
 export type RootState = ReturnType<typeof rootReducer>;

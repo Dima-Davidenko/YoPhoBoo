@@ -6,6 +6,7 @@ import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 import { useTypedDispatch } from '../../../hooks/useTypedDispatch';
+import { useAddContactMutation, useGetContactsQuery } from '../../../redux/phonebook/phonebookAPI';
 import { addContact } from '../../../redux/phonebook/phonebookOperations';
 import { selectContacts, selectIsLoading } from '../../../redux/phonebook/phonebookSelectors';
 import { formatPhoneNumber } from '../../../utils/formatPhoneNumber';
@@ -44,6 +45,10 @@ const schema = yup.object().shape({
 const initialValues: MyFormValues = { name: '', number: '' };
 
 const NewContactForm: React.FC = () => {
+  // const [apiAddContact, result] = useAddContactMutation();
+  // const { data } = useGetContactsQuery('');
+  // console.log('Data', data);
+  // console.log('Result', result);
   const contacts = useSelector(selectContacts);
   const isLoading = useSelector(selectIsLoading);
   const dispatch = useTypedDispatch();
@@ -61,6 +66,7 @@ const NewContactForm: React.FC = () => {
       }
       resetForm();
       dispatch(addContact({ name, number }));
+      // apiAddContact({ name, number });
       setSubmitting(false);
       setOpen(false);
     },
