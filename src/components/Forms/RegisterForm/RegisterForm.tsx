@@ -63,7 +63,8 @@ export const RegisterForm: React.FC<{}> = () => {
     initialValues,
     validationSchema: schema,
     onSubmit: (values, { setSubmitting, resetForm }) => {
-      dispatch(register(values));
+      const { name, email, password } = values;
+      dispatch(register({ name, email, password }));
       setSubmitting(false);
     },
     validateOnBlur: true,

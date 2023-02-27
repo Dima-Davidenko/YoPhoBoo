@@ -3,7 +3,7 @@ import { toast } from 'react-toastify';
 import { createAppAsyncThunk } from '../../types/asyncThunkTyped';
 import { IContanct, IStoredContact } from '../../types/serverSchemaTypes';
 
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://backend-yophoboo.onrender.com';
 
 export const fetchContacts = createAppAsyncThunk('contacts/fetch', async (_, thunkAPI) => {
   try {

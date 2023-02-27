@@ -7,11 +7,12 @@ import ContactCard from '../ContactCard/ContactCard';
 import css from './Contacts.module.scss';
 
 const Contacts: React.FC = () => {
-  const dispatch = useTypedDispatch();
+  // const dispatch = useTypedDispatch();
   const filteredContacts = useSelector(selectFilteredContacts);
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   // console.log('fetchContacts in Contacts');
+  //   dispatch(fetchContacts());
+  // }, [dispatch]);
   return (
     <ul className={css.contactList}>
       {[...filteredContacts].reverse().map(({ id, name, number }) => (

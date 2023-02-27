@@ -8,7 +8,7 @@ import {
   IUserLogIn,
 } from '../../types/serverSchemaTypes';
 import { RootState } from '../store';
-axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
+axios.defaults.baseURL = 'https://backend-yophoboo.onrender.com';
 
 const setAuthHeader = (token: string | null) => {
   if (!token) return;

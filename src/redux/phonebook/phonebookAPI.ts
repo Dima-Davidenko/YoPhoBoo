@@ -5,7 +5,7 @@ import { RootState } from '../store';
 export const phonebookAPI = createApi({
   reducerPath: 'phonebookAPI',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'https://connections-api.herokuapp.com',
+    baseUrl: 'https://backend-yophoboo.onrender.com',
     prepareHeaders: (headers, api) => {
       const state = api.getState() as RootState;
       const token = state.auth.user.token;

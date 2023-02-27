@@ -31,6 +31,7 @@ function App() {
   }, [dispatch, isLoggedIn, token]);
   useEffect(() => {
     if (isLoggedIn) {
+      console.log('fetchContacts in App');
       dispatch(fetchContacts());
     }
   }, [dispatch, isLoggedIn]);
