@@ -1,6 +1,7 @@
 # YoPhoBoo App
 
-## React TypeScript project of BC-36 GoIT Academy student Dmytro Davidenko
+## Dmytro Davidenko. React TypeScript project. Front-end part.
+### You can see the code of back-end part via this link: https://github.com/Dima-Davidenko/backend-YoPhoBoo.
 
 ## [ Stack of technologies ]
 
@@ -27,5 +28,4 @@
 
 ## Project description
 
-This is an educational project, the main goal of which is to learn how to work with React, Redux,
-TypeScript, REST API, Material UI.
+This application allows the user to create, edit and manage their own phone book.
