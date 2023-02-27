@@ -1,4 +1,4 @@
-# PhoneBook
+# YoPhoBoo App
 ## React TypeScript project of BC-36 GoIT Academy student Dmytro Davidenko
 
 ## [ Stack of technologies ]
@@ -20,11 +20,11 @@
 ## Project Features
 
 - Adaptive layout
-- User account (registration, login, logout, refreshing after page reload).
+- User account (registration, login, logout, refreshing after page reloading).
 - Saving user contacts on a remote server.
 - Implemented creation, deletion and editing of contacts.
 
 
 ## Project description
 
-This is an educational project, the main goal of which is to learn how to work with React, Redux, TypeScript, REST API
+This is an educational project, the main goal of which is to learn how to work with React, Redux, TypeScript, REST API, Material UI.
