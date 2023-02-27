@@ -1,8 +1,8 @@
 {
-  "name": "goit-react-hw-08-phonebook",
+  "name": "YoPhoBoo",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://dima-davidenko.github.io/goit-react-hw-08-phonebook/",
+  "homepage": "https://dima-davidenko.github.io/YoPhoBoo/",
   "dependencies": {
     "@emotion/react": "^11.10.5",
     "@emotion/styled": "^11.10.5",

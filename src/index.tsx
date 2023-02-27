@@ -19,7 +19,7 @@ theme = responsiveFontSizes(theme);
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <Provider store={store}>
-    <BrowserRouter basename="goit-react-hw-08-phonebook">
+    <BrowserRouter basename="YoPhoBoo">
       <PersistGate loading={null} persistor={persistor}>
         <ThemeProvider theme={theme}>
           <App />
